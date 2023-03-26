@@ -1,0 +1,37 @@
+Поле desk как структура, содержащая 8*8 массив из void*:
+	если стоит фигура, то там указатель на фигуру;
+	если пусто, то NULL.
+
+Базовый класс Piece
+Piece - содержит int x, y координаты;
+|- King - проверяет всё вокруг себя;
+|- Queen - проверяет вертикальны и диагональный кресты;
+|- Rook - проверяет вертикальный крест;
+|- Bishop - проверяет диагональный крест;
++- Knight - проверяет "Г" т.е. (x+2, y+1), (x+2, y-1), (x-2, y+1), (x-2, y-1)
+							 и (x+1, y+2), (x+1, y-2), (x-1, y+2), (x-1, y-2);
+
+	все проверяют выход за край.
+Проверки осуществляются virtual функцией attack;
+
+void (figure)_attack(const void* _self, const void*(* desk)[8]){
+	if(!self||!field) return;
+	struct (Name)* self = _self;
+	int x_check = x(self);
+	int y_check = y(self);
+	for (algorithm);
+		if(x_check<0||x_check>7||x_check<0||y_check>7)
+			continue;//esc_flag=true;	
+		if((*desk)[x_check][y_check])
+			printf("%s at %d, %d attacks %s at %d, %d",name(self), x(self), y(self), 
+					name((*desk)[x_check][y_check]), x((*desk)[x_check][y_check]), y((*desk)[x_check][y_check]));
+}
+
+ф-я проверки для всей доски check:
+void check(const void*(* desk)[8]){
+	if(!desk) return;
+	for x,y in range(8){
+		if ((*desk[x][y])) // desk[x][y]!==NULL
+			(*desk[x][y])->attack((*desk[x][y]), desk)
+	}
+}
